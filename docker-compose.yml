@@ -1,0 +1,10 @@
+version: "2"
+services:
+  extjs:
+    image: extjs-basic
+    ports:
+      - 3000:3000
+    volumes:
+      - .:/extjs-basic
+    working_dir: /extjs-basic/demo
+    command: rails s -b 0.0.0.0

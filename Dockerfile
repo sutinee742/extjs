@@ -30,4 +30,8 @@ RUN yum install -y make gcc gcc-c++ \
   && rm -rf ruby-2.3.1.tar.gz \
 
  RUN gem install bundler \
-  && gem install rails \
+  && gem install rails
+
+COPY /demo/Gemfile  /Gemfile
+COPY /demo/Gemfile.lock /Gemfile.lock
+RUN bundle install
