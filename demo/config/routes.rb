@@ -5,7 +5,11 @@ Rails.application.routes.draw do
 
   post '/login' => 'login#login'
   post '/logout' => 'main#logout'
+  post '/timein' => 'main#timein'
+  post '/timeout' => 'main#timeout'
+  post '/search' => 'main#search'
   get '/main' => 'main#index'
+  get '/worktime' => 'worktime#index'
 
 
 end

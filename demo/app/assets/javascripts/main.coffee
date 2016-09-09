@@ -1,46 +1,25 @@
-# Place all the behaviors and hooks related to the matching controller here.
-# All this logic will automatically be available in application.js.
-# You can use CoffeeScript in this file: http://coffeescript.org/
+//= require 'main/main'
 console.log 'main'
 
+# dataModel
+Ext.define 'TimeStampModel',
+  extend: 'Ext.data.Model'
+  fields: [
+    {name: 'date', mapping: 'date'}
+    {name: 'name', mapping: 'name'}
+    {name: 'timein', mapping: 'timein'}
+    {name: 'timeout', mapping: 'timeout'}
+  ]
+
 Ext.onReady ->
-  Ext.create 'Ext.form.Panel',
-     renderTo: Ext.getBody()
-     title: 'Main'
-     layout: 'vbox'
-     items: [
-        xtype: 'button'
-        text: 'Logout'
-        handler: (btn)->
-          content = document.getElementsByTagName('meta')[0]['content']
-          key = document.getElementsByTagName('meta')[1]['content']
-
-          params =
-            username: ''
-            password: ''
-
-          params[content] = key
-          console.log params
-          Ext.Ajax.request {
-            url: 'logout'
-            method: 'POST'
-            params: params
-
-            success: (response, opts) ->
-              obj = Ext.decode response.responseText
-              console.log obj
-              if obj.success
-                Ext.MessageBox.alert('Log out','Bye... ')
-                # console.log this
-                # this.getView().destroy()
-                document.location.assign '/'
-              else
-                Ext.MessageBox.alert('Log out','invalid')
-
-            failure: (response, opts) ->
-              console.log 'server side errors'
-
-          }
-
-
-     ]
+  console.log 'ready'
+  #main panel
+  Ext.create 'Ext.container.Viewport',
+    renderTo: Ext.getBody()
+    layout:
+      type: 'fit'
+    border: true
+    frame: true
+    items: [
+      Ext.create 'Main.Event'
+    ]

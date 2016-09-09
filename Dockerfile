@@ -19,17 +19,19 @@ RUN yum install -y make gcc gcc-c++ \
  && ln -s /opt/postgresql-9.5.3 /opt/postgres \
  && rm -f /postgresql-9.5.3.tar.bz2
 
- ENV RUBY_VERSION 2.3.1
- RUN wget https://cache.ruby-lang.org/pub/ruby/2.3/ruby-2.3.1.tar.gz \
+ENV RUBY_VERSION 2.3.1
+RUN wget https://cache.ruby-lang.org/pub/ruby/2.3/ruby-2.3.1.tar.gz \
   && tar -xf ruby-2.3.1.tar.gz \
   && cd ruby-2.3.1 \
   && ./configure --disable-install-doc --disable-install-rdoc --enable-shared \
   && make \
   && make install \
   && cd / \
-  && rm -rf ruby-2.3.1.tar.gz \
+  && rm -rf ruby-2.3.1.tar.gz
 
- RUN gem install bundler \
+ENV PATH $PATH:/opt/postgres/bin
+
+RUN gem install bundler \
   && gem install rails
 
 COPY /demo/Gemfile  /Gemfile

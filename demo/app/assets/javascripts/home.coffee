@@ -56,7 +56,7 @@ Ext.onReady ->
                  document.location.assign 'main'
                else
                  Ext.MessageBox.alert('Log in','invalid')
-
+                 
              failure: (response, opts) ->
                console.log 'server side errors'
 

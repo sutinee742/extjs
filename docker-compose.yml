@@ -8,3 +8,10 @@ services:
       - .:/extjs-basic
     working_dir: /extjs-basic/demo
     command: rails s -b 0.0.0.0
+
+  postgres:
+    image: postgres:9.5.3
+    environment:
+      PGDATA: /pgdata
+    ports:
+      - "5432:5432"
