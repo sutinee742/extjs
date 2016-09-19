@@ -11,5 +11,7 @@ Rails.application.routes.draw do
   get '/main' => 'main#index'
   get '/worktime' => 'worktime#index'
 
+  get '/account_management' => 'account_management#index'
+
 
 end
