@@ -1,12 +1,11 @@
 version: "2"
 services:
   extjs:
-    image: <%= project %>-rails
+    image: extjs-basic
     ports:
       - 3000:3000
-    volumes:
-      - ../demo:/demo
-    working_dir: /demo
+   
+    working_dir: /extjs-basic/demo
     command: rails s -b 0.0.0.0
 
   postgres:

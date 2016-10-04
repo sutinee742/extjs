@@ -13,5 +13,7 @@ Rails.application.routes.draw do
 
   get '/account_management' => 'account_management#index'
 
+  get '/opd2' => 'opd2#index'
+
 
 end

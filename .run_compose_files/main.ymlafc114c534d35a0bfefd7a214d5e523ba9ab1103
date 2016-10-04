@@ -1,7 +1,7 @@
 version: "2"
 services:
   extjs:
-    image: <%= project %>-rails
+    image: registry.angstrom.co.th:8443/extjs-basic-rails
     ports:
       - 3000:3000
     volumes:
