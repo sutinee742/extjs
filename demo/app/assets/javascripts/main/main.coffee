@@ -31,13 +31,34 @@ Ext.define 'Main.Event',
     btnreport.on 'click', ->
       console.log 'report jaa'
       griddata = grid.getStore().getRange()
-      arr = new Array
+      arr = []
       i = 0
       while i < griddata.length
-        arr.push griddata[i].data
+        dates = griddata[i].data.date.split 'T'
+        date = dates[0]
+
+        name = griddata[i].data.name
+
+        timeins = griddata[i].data.timein.split 'T'
+        timeinl = timeins[1].split '.'
+        timein = timeinl[0]
+
+        timeout = ''
+
+        if griddata[i].data.timeout
+          timeouts = griddata[i].data.timeout.split 'T'
+          timeoutl = timeouts[1].split '.'
+          timeout = timeoutl[0]
+
+        obj = {
+          date: date
+          name: name
+          timein: timein
+          timeout: timeout
+        }
+        arr.push obj
         i++
-      jsondt = Ext.pluck griddata, 'data'
-      console.log  jsondt
+      jsondt = arr
 
       columns = [
         {title: "Date", dataKey: "date"}
@@ -69,7 +90,7 @@ Ext.define 'Main.Event',
           doc.text "Date from #{startdate.getValue().getFullYear()}-#{startdate.getValue().getMonth()}-#{startdate.getValue().getDate()} to #{enddate.getValue().getFullYear()}-#{enddate.getValue().getMonth()}-#{enddate.getValue().getDate()} ", 300, 85
 
       }
-      doc.save 'test.pdf'
+      doc.save "worktime_report_#{startdate.getValue().getFullYear()}-#{startdate.getValue().getMonth()}-#{startdate.getValue().getDate()}_#{enddate.getValue().getFullYear()}-#{enddate.getValue().getMonth()}-#{enddate.getValue().getDate()}.pdf"
 
 
     btnlogout.on 'click', ->
