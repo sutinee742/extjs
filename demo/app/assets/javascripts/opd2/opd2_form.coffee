@@ -181,17 +181,6 @@ Ext.define 'OPD2.Form.UI',
                 labelAlign: 'right'
             ]
         ]
-      ,
-        xtype: 'container'
-        layout: 'hbox'
-        items: [
-            xtype: 'button'
-            text: 'Save'
-            margin: '0 5 0 0'
-          ,
-            xtype: 'button'
-            text: 'Close Detail'
-        ]
 
     ]
 

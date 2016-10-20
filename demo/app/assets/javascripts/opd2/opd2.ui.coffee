@@ -51,6 +51,11 @@ Ext.define 'OPD2.UI',
             text: 'ค้นหาตาม Criteria'
             name: 'btn_criteria'
             margin: '0 0 0 350'
+          ,
+            xtype: 'button'
+            text: 'opd2-form-test'
+            name: 'btn_opd2_form_test'
+
         ]
       ,
         xtype: 'grid'

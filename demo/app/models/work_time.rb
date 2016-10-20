@@ -2,9 +2,9 @@ class WorkTime < ApplicationRecord
   belongs_to :employee
 
   def self.search(start_date,end_date,username)
-    if start_date && end_date
-      where("date between '#{start_date}' and '#{end_date}'").order(:date, employee_id: :asc)
-    end
+    # if start_date && end_date
+    #   where("date between '#{start_date}' and '#{end_date}'").order(:date, employee_id: :asc)
+    # end
 
     wt = WorkTime.arel_table
     em = Employee.arel_table
@@ -14,9 +14,16 @@ class WorkTime < ApplicationRecord
         wt[:timein],
         wt[:timeout],
         em[:name]]
-        ).join(em, Arel::Nodes::OuterJoin ).on(wt[:employee_id].eq em[:id])
+        )
+        .join(em, Arel::Nodes::OuterJoin )
+        .on(wt[:employee_id].eq em[:id])
         .where(em[:username].eq username)
+        .order([wt[:date]])
 
+    if start_date && end_date
+        stmt.where(wt[:date].gteq start_date).where(wt[:date].lteq end_date)
+        # where("date between '#{start_date}' and '#{end_date}'").order(:date, employee_id: :asc)
+    end
     find_by_sql stmt.to_sql
 
   end

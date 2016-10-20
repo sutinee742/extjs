@@ -12,12 +12,9 @@ class WorktimeController < ApplicationController
 
     puts(@start_date)
     puts(@end_date)
-    @worktimes = WorkTime.search(@start_date, @end_date,session[:username])
+    @worktimes = WorkTime.search(@start_date, @end_date, session[:username])
     puts('data')
     puts @worktimes
-
-
-
 
     render :json => {success: true, worktimes: @worktimes}
 

@@ -3,9 +3,11 @@
 Ext.define 'Main.Event',
   extend: 'Main.UI'
   bind: ->
+    search_form = @down 'form'
     btnsearch = @down 'button[name=search]'
     btnlogout = @down 'button[name=logout]'
     btntimestamp = @down 'button[name=timestamp]'
+    btnreport = @down 'button[name=report]'
     startdate = @down 'datefield[name=startdate]'
     enddate = @down 'datefield[name=enddate]'
 
@@ -17,11 +19,57 @@ Ext.define 'Main.Event',
       params: {startdate: today, enddate: today}
     })
 
-
     btnsearch.on 'click', ->
+      console.log 'search'
+      console.log search_form.getValues()
+
       grid.getStore().load({
         params: {startdate: startdate.getValue(), enddate: enddate.getValue()}
       })
+
+
+    btnreport.on 'click', ->
+      console.log 'report jaa'
+      griddata = grid.getStore().getRange()
+      arr = new Array
+      i = 0
+      while i < griddata.length
+        arr.push griddata[i].data
+        i++
+      jsondt = Ext.pluck griddata, 'data'
+      console.log  jsondt
+
+      columns = [
+        {title: "Date", dataKey: "date"}
+        {title: "Name", dataKey: "name"}
+        {title: "Time-in", dataKey: "timein"}
+        {title: "Time-out", dataKey: "timeout"}
+      ]
+
+      rows = [
+        {"date": "2016-10-16", "name": "monmon", "timein": "07.00", "timeout": "17.00"}
+        {"date": "2016-10-18", "name": "nan", "timein": "07.00", "timeout": "17.00"}
+      ]
+
+      doc = new jsPDF('p','pt')
+      doc.autoTable columns, jsondt, {
+        theme: 'grid'
+        styles:
+          fillColor: [255, 255, 255]
+          textColor: [0, 0, 0]
+        headerStyles:
+          fillColor: 151
+          textColor: 255
+        margin:
+          top: 120
+        beforePageContent: (data) ->
+          doc.setFontSize(32)
+          doc.text "Report worktime", 55, 50
+          doc.setFontSize(15)
+          doc.text "Date from #{startdate.getValue().getFullYear()}-#{startdate.getValue().getMonth()}-#{startdate.getValue().getDate()} to #{enddate.getValue().getFullYear()}-#{enddate.getValue().getMonth()}-#{enddate.getValue().getDate()} ", 300, 85
+
+      }
+      doc.save 'test.pdf'
 
 
     btnlogout.on 'click', ->

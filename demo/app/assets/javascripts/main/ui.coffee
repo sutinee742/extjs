@@ -19,11 +19,13 @@ Ext.define 'Main.UI',
     startdate = Ext.create 'Ext.form.field.Date',
       fieldLabel: 'Select from'
       name: 'startdate'
+      # format: 'd-m-Y'
       value: today
 
     enddate = Ext.create 'Ext.form.field.Date',
       fieldLabel: 'to'
       name: 'enddate'
+      # format: 'd-m-Y'
       value: today
 
     btnlogout = Ext.create 'Ext.Button',
@@ -95,9 +97,10 @@ Ext.define 'Main.UI',
     btntimestamp = Ext.create 'Ext.Button',
       text: 'Timestamp'
       name: 'timestamp'
-      # listeners:
-      #   click: () ->
-      #     win.show()
+
+    btnreport = Ext.create 'Ext.Button',
+      text: 'Report'
+      name: 'report'
 
     #sub panel
     panelheader = Ext.create 'Ext.Panel',
@@ -107,12 +110,12 @@ Ext.define 'Main.UI',
       html: '<h1>Hello, '+USER+'!</h1>'
 
 
-    panel1 = Ext.create 'Ext.Panel',
+    panel1 = Ext.create 'Ext.form.Panel',
       height: 100
       margin: 5
       padding: 5
       bodyPadding: '5 5 5 5'
-      items: [startdate, enddate, btnsearch, btntimestamp, btnlogout]
+      items: [startdate, enddate, btnsearch, btntimestamp, btnreport, btnlogout]
 
     # panel2 = Ext.create 'Ext.Panel',
     #     items: [mygrid]
